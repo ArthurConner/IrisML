@@ -28,6 +28,11 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 
+## compilted models
+
+*.mlmodel
+notebooks/.ipynb_checkpoints/
+
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
