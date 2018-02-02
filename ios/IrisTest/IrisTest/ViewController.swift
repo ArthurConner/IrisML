@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         model = iris_logistic_regression()
-        
+        runModel()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
