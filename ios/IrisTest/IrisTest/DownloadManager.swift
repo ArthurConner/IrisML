@@ -31,8 +31,7 @@ class ModelDownloadManager : NSObject {
     
     // Download delegate sets this value:
     var progress: Float = 0
-    var tasks:[URL:URLSessionTask] = [:]
-    
+
     
     func startModelFetch(url:URL){
         
@@ -64,7 +63,6 @@ class ModelDownloadManager : NSObject {
                 return
             }
             
-      
             let compiledUrl:URL
             
             do {
@@ -82,7 +80,6 @@ class ModelDownloadManager : NSObject {
                 d.hasNew(model: model)
                 
             } catch {
-                
                 
                 let reason = "model not found  \(error)"
                 handleError(.missingObject,  reason)
@@ -117,10 +114,6 @@ extension ModelDownloadManager : URLSessionDelegate{
             return
         }
 
-        if let t = downloadTask.currentRequest?.url {
-        self.tasks[t] = nil
-            
-        }
         let compiledUrl:URL
         
         do {
