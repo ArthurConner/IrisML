@@ -18,6 +18,8 @@
 		0EBDBB152028CE44001BC9C3 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDBB142028CE44001BC9C3 /* DownloadManager.swift */; };
 		0EBDBB172028E2A2001BC9C3 /* dog.5303.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EBDBB162028E2A1001BC9C3 /* dog.5303.jpg */; };
 		0EBDBB192028E704001BC9C3 /* CGImagePropertyOrientationEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDBB182028E704001BC9C3 /* CGImagePropertyOrientationEX.swift */; };
+		0EBDBB1B20290044001BC9C3 /* mobilnet025.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDBB1A20290044001BC9C3 /* mobilnet025.mlmodel */; };
+		0EBDBB1D20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EBDBB1C20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg */; };
 		357F168A12053C6507206E8F /* Pods_IrisTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6227D94C385079397B4B7F /* Pods_IrisTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +37,8 @@
 		0EBDBB142028CE44001BC9C3 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		0EBDBB162028E2A1001BC9C3 /* dog.5303.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dog.5303.jpg; sourceTree = "<group>"; };
 		0EBDBB182028E704001BC9C3 /* CGImagePropertyOrientationEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImagePropertyOrientationEX.swift; sourceTree = "<group>"; };
+		0EBDBB1A20290044001BC9C3 /* mobilnet025.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = mobilnet025.mlmodel; sourceTree = "<group>"; };
+		0EBDBB1C20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sunflower-sun-summer-yellow.jpg"; sourceTree = "<group>"; };
 		46A2A27CF21CB6B313FBD3C0 /* Pods-IrisTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IrisTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IrisTest/Pods-IrisTest.debug.xcconfig"; sourceTree = "<group>"; };
 		4A6227D94C385079397B4B7F /* Pods_IrisTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IrisTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B07B97DA4B440C7DADDC2960 /* Pods-IrisTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IrisTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-IrisTest/Pods-IrisTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 				0E81B92A2024EAB90068096A /* Assets.xcassets */,
 				0E81B92C2024EAB90068096A /* LaunchScreen.storyboard */,
 				0EBDBB162028E2A1001BC9C3 /* dog.5303.jpg */,
+				0EBDBB1C20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg */,
 				0E81B92F2024EAB90068096A /* Info.plist */,
 			);
 			path = IrisTest;
@@ -92,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				0E81B9362024F0930068096A /* iris_logistic_regression.mlmodel */,
+				0EBDBB1A20290044001BC9C3 /* mobilnet025.mlmodel */,
 				0E81B9372024F0930068096A /* README.md */,
 			);
 			path = Model;
@@ -177,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E81B92E2024EAB90068096A /* LaunchScreen.storyboard in Resources */,
+				0EBDBB1D20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg in Resources */,
 				0EBDBB172028E2A2001BC9C3 /* dog.5303.jpg in Resources */,
 				0E81B92B2024EAB90068096A /* Assets.xcassets in Resources */,
 				0E81B9392024F0930068096A /* README.md in Resources */,
@@ -252,6 +259,7 @@
 				0E81B9262024EAB90068096A /* ViewController.swift in Sources */,
 				0E81B9382024F0930068096A /* iris_logistic_regression.mlmodel in Sources */,
 				0EBDBB192028E704001BC9C3 /* CGImagePropertyOrientationEX.swift in Sources */,
+				0EBDBB1B20290044001BC9C3 /* mobilnet025.mlmodel in Sources */,
 				0E81B9242024EAB80068096A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

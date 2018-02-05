@@ -15,26 +15,32 @@ import ImageIO
 class ViewController: UIViewController, ModelManagerDelegate {
     
     @IBOutlet weak var classificationLabel: UILabel!
-
+    
     var classificationRequest: VNCoreMLRequest?
     
+    let irisModel = mobilnet025()
+    let useRemote = false
+    
     func makeModel(){
-        
-        let d = ModelDownloadManager.shared
-        
-        classificationLabel.text = "Downloading model"
-        d.delegate = self
-        
-        
-        let name = "https://docs-assets.developer.apple.com/coreml/models/MobileNet.mlmodel"
-        
-        // let name  = "https://docs-assets.developer.apple.com/coreml/models/SqueezeNet.mlmodel"
-        guard let bar:URL = URL(string:  name) else {
-            handleError(.missingObject, "no valid iris url")
-            return
+        if useRemote {
+            let d = ModelDownloadManager.shared
+            
+            classificationLabel.text = "Downloading model"
+            d.delegate = self
+            
+            let name = "https://docs-assets.developer.apple.com/coreml/models/MobileNet.mlmodel"
+            // let name  = "https://docs-assets.developer.apple.com/coreml/models/SqueezeNet.mlmodel"
+            
+            guard let bar:URL = URL(string:  name) else {
+                handleError(.missingObject, "no valid iris url")
+                return
+            }
+            
+            d.startModelFetch(url: bar)
+        } else {
+            
+            hasNew(model: irisModel.model)
         }
-        
-        d.startModelFetch(url: bar)
         
     }
     
@@ -59,7 +65,7 @@ class ViewController: UIViewController, ModelManagerDelegate {
             request.imageCropAndScaleOption = .centerCrop
             self.classificationRequest = request
             
-            if let im = UIImage(named: "dog.5303.jpg") {
+            if let im = UIImage(named: "sunflower-sun-summer-yellow.jpg") {
                 updateClassifications(for: im)
             }
             
