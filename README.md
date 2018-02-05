@@ -26,3 +26,4 @@ as .yml
 
 https://www.appcoda.com/core-ml-tools-conversion/
 https://blog.pusher.com/using-prediction-models-coreml/
+https://hackernoon.com/integrating-tensorflow-model-in-an-ios-app-cecf30b9068d
