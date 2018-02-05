@@ -17,6 +17,7 @@
 		0E81B93B2024F2170068096A /* AppErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E81B93A2024F2170068096A /* AppErrors.swift */; };
 		0EBDBB152028CE44001BC9C3 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDBB142028CE44001BC9C3 /* DownloadManager.swift */; };
 		0EBDBB172028E2A2001BC9C3 /* dog.5303.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EBDBB162028E2A1001BC9C3 /* dog.5303.jpg */; };
+		0EBDBB192028E704001BC9C3 /* CGImagePropertyOrientationEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDBB182028E704001BC9C3 /* CGImagePropertyOrientationEX.swift */; };
 		357F168A12053C6507206E8F /* Pods_IrisTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6227D94C385079397B4B7F /* Pods_IrisTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		0E81B93A2024F2170068096A /* AppErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppErrors.swift; sourceTree = "<group>"; };
 		0EBDBB142028CE44001BC9C3 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		0EBDBB162028E2A1001BC9C3 /* dog.5303.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dog.5303.jpg; sourceTree = "<group>"; };
+		0EBDBB182028E704001BC9C3 /* CGImagePropertyOrientationEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImagePropertyOrientationEX.swift; sourceTree = "<group>"; };
 		46A2A27CF21CB6B313FBD3C0 /* Pods-IrisTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IrisTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IrisTest/Pods-IrisTest.debug.xcconfig"; sourceTree = "<group>"; };
 		4A6227D94C385079397B4B7F /* Pods_IrisTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IrisTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B07B97DA4B440C7DADDC2960 /* Pods-IrisTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IrisTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-IrisTest/Pods-IrisTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				0EBDBB142028CE44001BC9C3 /* DownloadManager.swift */,
 				0E81B93A2024F2170068096A /* AppErrors.swift */,
 				0E81B9272024EAB90068096A /* Main.storyboard */,
+				0EBDBB182028E704001BC9C3 /* CGImagePropertyOrientationEX.swift */,
 				0E81B92A2024EAB90068096A /* Assets.xcassets */,
 				0E81B92C2024EAB90068096A /* LaunchScreen.storyboard */,
 				0EBDBB162028E2A1001BC9C3 /* dog.5303.jpg */,
@@ -248,6 +251,7 @@
 				0EBDBB152028CE44001BC9C3 /* DownloadManager.swift in Sources */,
 				0E81B9262024EAB90068096A /* ViewController.swift in Sources */,
 				0E81B9382024F0930068096A /* iris_logistic_regression.mlmodel in Sources */,
+				0EBDBB192028E704001BC9C3 /* CGImagePropertyOrientationEX.swift in Sources */,
 				0E81B9242024EAB80068096A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

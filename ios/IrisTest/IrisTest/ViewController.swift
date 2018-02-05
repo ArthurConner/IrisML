@@ -8,49 +8,14 @@
 
 import UIKit
 import CoreML
-
 import Vision
-
-
-
 import ImageIO
-
-extension CGImagePropertyOrientation {
-    /**
-     Converts a `UIImageOrientation` to a corresponding
-     `CGImagePropertyOrientation`. The cases for each
-     orientation are represented by different raw values.
-     
-     - Tag: ConvertOrientation
-     */
-    init(_ orientation: UIImageOrientation) {
-        switch orientation {
-        case .up: self = .up
-        case .upMirrored: self = .upMirrored
-        case .down: self = .down
-        case .downMirrored: self = .downMirrored
-        case .left: self = .left
-        case .leftMirrored: self = .leftMirrored
-        case .right: self = .right
-        case .rightMirrored: self = .rightMirrored
-        }
-    }
-}
-
 
 
 class ViewController: UIViewController, ModelManagerDelegate {
     
     @IBOutlet weak var classificationLabel: UILabel!
-    
-    
-    
-    //var model: iris_logistic_regression?
-    
-    
-    
-    
-    
+
     var classificationRequest: VNCoreMLRequest?
     
     func makeModel(){
@@ -60,7 +25,11 @@ class ViewController: UIViewController, ModelManagerDelegate {
         classificationLabel.text = "Downloading model"
         d.delegate = self
         
-        guard let bar:URL = URL(string:  "https://docs-assets.developer.apple.com/coreml/models/SqueezeNet.mlmodel") else {
+        
+        let name = "https://docs-assets.developer.apple.com/coreml/models/MobileNet.mlmodel"
+        
+        // let name  = "https://docs-assets.developer.apple.com/coreml/models/SqueezeNet.mlmodel"
+        guard let bar:URL = URL(string:  name) else {
             handleError(.missingObject, "no valid iris url")
             return
         }
@@ -69,17 +38,9 @@ class ViewController: UIViewController, ModelManagerDelegate {
         
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //  model = iris_logistic_regression()
-        
-        
         makeModel()
-        
-        //  runModel()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func didReceiveMemoryWarning() {
@@ -90,15 +51,12 @@ class ViewController: UIViewController, ModelManagerDelegate {
     
     func hasNew(model: MLModel) {
         
-        
         do {
             let vis = try VNCoreMLModel(for: model)
-            
             let request = VNCoreMLRequest(model: vis, completionHandler: { [weak self] request, error in
                 self?.processClassifications(for: request, error: error)
             })
             request.imageCropAndScaleOption = .centerCrop
-            
             self.classificationRequest = request
             
             if let im = UIImage(named: "dog.5303.jpg") {
@@ -115,21 +73,16 @@ class ViewController: UIViewController, ModelManagerDelegate {
         debugPrint("oops")
     }
     
-    
-    
-    
     func updateClassifications(for image: UIImage) {
         
         guard let request = self.classificationRequest else {
             handleError(.missingObject, "don't have the classification request yet")
-            
             return
         }
         
-        OperationQueue.main.addOperation { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             self?.classificationLabel.text = "Classifying..."
         }
-        
         
         let orientation = CGImagePropertyOrientation(image.imageOrientation)
         guard let ciImage = CIImage(image: image) else { fatalError("Unable to create \(CIImage.self) from \(image).") }
@@ -139,12 +92,7 @@ class ViewController: UIViewController, ModelManagerDelegate {
             do {
                 try handler.perform([request])
             } catch {
-                /*
-                 This handler catches general image processing errors. The `classificationRequest`'s
-                 completion handler `processClassifications(_:error:)` catches errors specific
-                 to processing that request.
-                 */
-                print("Failed to perform classification.\n\(error.localizedDescription)")
+                handleError(.runningModel, "Failed to perform classification.\n\(error.localizedDescription)")
             }
         }
     }

@@ -87,14 +87,28 @@ class ModelDownloadManager : NSObject {
             }
             
         })
-        
         t.resume()
-    
-        
     }
     
     
-    
+    func moveModel(compiledUrl:URL){
+        // find the app support directory
+        let fileManager = FileManager.default
+        let appSupportDirectory = try! fileManager.url(for: .applicationSupportDirectory,
+                                                       in: .userDomainMask, appropriateFor: compiledUrl, create: true)
+        // create a permanent URL in the app support directory
+        let permanentUrl = appSupportDirectory.appendingPathComponent(compiledUrl.lastPathComponent)
+        do {
+            // if the file exists, replace it. Otherwise, copy the file to the destination.
+            if fileManager.fileExists(atPath: permanentUrl.absoluteString) {
+                _ = try fileManager.replaceItemAt(permanentUrl, withItemAt: compiledUrl)
+            } else {
+                try fileManager.copyItem(at: compiledUrl, to: permanentUrl)
+            }
+        } catch {
+            print("Error during copy: \(error.localizedDescription)")
+        }
+    }
 }
 
 extension ModelDownloadManager : URLSessionDelegate{
@@ -125,14 +139,11 @@ extension ModelDownloadManager : URLSessionDelegate{
             return
         }
         
-        
         do {
             let model = try MLModel(contentsOf: compiledUrl)
             d.hasNew(model: model)
             
         } catch {
-            
-            
             let reason = "model not found  \(error)"
             handleError(.missingObject,  reason)
             d.didNotMakeModel(reason:reason)
