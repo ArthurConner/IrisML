@@ -21,6 +21,27 @@
 		0EBDBB1B20290044001BC9C3 /* mobilnet025.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDBB1A20290044001BC9C3 /* mobilnet025.mlmodel */; };
 		0EBDBB1D20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EBDBB1C20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg */; };
 		0EBDBB1F202909A1001BC9C3 /* mobilnet100.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0EBDBB1E202909A1001BC9C3 /* mobilnet100.mlmodel */; };
+		0ECD990E202A124D0097264B /* daisy1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD98F9202A124C0097264B /* daisy1.jpg */; };
+		0ECD990F202A124D0097264B /* daisy2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD98FA202A124C0097264B /* daisy2.jpg */; };
+		0ECD9910202A124D0097264B /* daisy3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD98FB202A124C0097264B /* daisy3.jpg */; };
+		0ECD9911202A124D0097264B /* daisy4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD98FC202A124C0097264B /* daisy4.jpg */; };
+		0ECD9912202A124D0097264B /* dandelion1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD98FD202A124C0097264B /* dandelion1.jpg */; };
+		0ECD9913202A124D0097264B /* dandelion2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD98FE202A124C0097264B /* dandelion2.jpg */; };
+		0ECD9914202A124D0097264B /* dandelion3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD98FF202A124C0097264B /* dandelion3.jpg */; };
+		0ECD9915202A124D0097264B /* dandelion4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9900202A124C0097264B /* dandelion4.jpg */; };
+		0ECD9916202A124D0097264B /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9901202A124C0097264B /* LICENSE.txt */; };
+		0ECD9917202A124D0097264B /* roses1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9902202A124C0097264B /* roses1.jpg */; };
+		0ECD9918202A124D0097264B /* roses2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9903202A124C0097264B /* roses2.jpg */; };
+		0ECD9919202A124D0097264B /* roses3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9904202A124C0097264B /* roses3.jpg */; };
+		0ECD991A202A124D0097264B /* roses4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9905202A124C0097264B /* roses4.jpg */; };
+		0ECD991B202A124D0097264B /* sunflowers1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9906202A124C0097264B /* sunflowers1.jpg */; };
+		0ECD991C202A124D0097264B /* sunflowers2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9907202A124C0097264B /* sunflowers2.jpg */; };
+		0ECD991D202A124D0097264B /* sunflowers3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9908202A124D0097264B /* sunflowers3.jpg */; };
+		0ECD991E202A124D0097264B /* sunflowers4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD9909202A124D0097264B /* sunflowers4.jpg */; };
+		0ECD991F202A124D0097264B /* tulips1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD990A202A124D0097264B /* tulips1.jpg */; };
+		0ECD9920202A124D0097264B /* tulips2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD990B202A124D0097264B /* tulips2.jpg */; };
+		0ECD9921202A124D0097264B /* tulips3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD990C202A124D0097264B /* tulips3.jpg */; };
+		0ECD9922202A124D0097264B /* tulips4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0ECD990D202A124D0097264B /* tulips4.jpg */; };
 		357F168A12053C6507206E8F /* Pods_IrisTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6227D94C385079397B4B7F /* Pods_IrisTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +62,27 @@
 		0EBDBB1A20290044001BC9C3 /* mobilnet025.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = mobilnet025.mlmodel; sourceTree = "<group>"; };
 		0EBDBB1C20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sunflower-sun-summer-yellow.jpg"; sourceTree = "<group>"; };
 		0EBDBB1E202909A1001BC9C3 /* mobilnet100.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = mobilnet100.mlmodel; sourceTree = "<group>"; };
+		0ECD98F9202A124C0097264B /* daisy1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = daisy1.jpg; sourceTree = "<group>"; };
+		0ECD98FA202A124C0097264B /* daisy2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = daisy2.jpg; sourceTree = "<group>"; };
+		0ECD98FB202A124C0097264B /* daisy3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = daisy3.jpg; sourceTree = "<group>"; };
+		0ECD98FC202A124C0097264B /* daisy4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = daisy4.jpg; sourceTree = "<group>"; };
+		0ECD98FD202A124C0097264B /* dandelion1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dandelion1.jpg; sourceTree = "<group>"; };
+		0ECD98FE202A124C0097264B /* dandelion2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dandelion2.jpg; sourceTree = "<group>"; };
+		0ECD98FF202A124C0097264B /* dandelion3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dandelion3.jpg; sourceTree = "<group>"; };
+		0ECD9900202A124C0097264B /* dandelion4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dandelion4.jpg; sourceTree = "<group>"; };
+		0ECD9901202A124C0097264B /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		0ECD9902202A124C0097264B /* roses1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = roses1.jpg; sourceTree = "<group>"; };
+		0ECD9903202A124C0097264B /* roses2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = roses2.jpg; sourceTree = "<group>"; };
+		0ECD9904202A124C0097264B /* roses3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = roses3.jpg; sourceTree = "<group>"; };
+		0ECD9905202A124C0097264B /* roses4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = roses4.jpg; sourceTree = "<group>"; };
+		0ECD9906202A124C0097264B /* sunflowers1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sunflowers1.jpg; sourceTree = "<group>"; };
+		0ECD9907202A124C0097264B /* sunflowers2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sunflowers2.jpg; sourceTree = "<group>"; };
+		0ECD9908202A124D0097264B /* sunflowers3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sunflowers3.jpg; sourceTree = "<group>"; };
+		0ECD9909202A124D0097264B /* sunflowers4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sunflowers4.jpg; sourceTree = "<group>"; };
+		0ECD990A202A124D0097264B /* tulips1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tulips1.jpg; sourceTree = "<group>"; };
+		0ECD990B202A124D0097264B /* tulips2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tulips2.jpg; sourceTree = "<group>"; };
+		0ECD990C202A124D0097264B /* tulips3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tulips3.jpg; sourceTree = "<group>"; };
+		0ECD990D202A124D0097264B /* tulips4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tulips4.jpg; sourceTree = "<group>"; };
 		46A2A27CF21CB6B313FBD3C0 /* Pods-IrisTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IrisTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IrisTest/Pods-IrisTest.debug.xcconfig"; sourceTree = "<group>"; };
 		4A6227D94C385079397B4B7F /* Pods_IrisTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IrisTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B07B97DA4B440C7DADDC2960 /* Pods-IrisTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IrisTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-IrisTest/Pods-IrisTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +132,7 @@
 				0E81B92C2024EAB90068096A /* LaunchScreen.storyboard */,
 				0EBDBB162028E2A1001BC9C3 /* dog.5303.jpg */,
 				0EBDBB1C20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg */,
+				0ECD98F8202A124C0097264B /* Flowers */,
 				0E81B92F2024EAB90068096A /* Info.plist */,
 			);
 			path = IrisTest;
@@ -104,6 +147,34 @@
 				0E81B9372024F0930068096A /* README.md */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0ECD98F8202A124C0097264B /* Flowers */ = {
+			isa = PBXGroup;
+			children = (
+				0ECD98F9202A124C0097264B /* daisy1.jpg */,
+				0ECD98FA202A124C0097264B /* daisy2.jpg */,
+				0ECD98FB202A124C0097264B /* daisy3.jpg */,
+				0ECD98FC202A124C0097264B /* daisy4.jpg */,
+				0ECD98FD202A124C0097264B /* dandelion1.jpg */,
+				0ECD98FE202A124C0097264B /* dandelion2.jpg */,
+				0ECD98FF202A124C0097264B /* dandelion3.jpg */,
+				0ECD9900202A124C0097264B /* dandelion4.jpg */,
+				0ECD9901202A124C0097264B /* LICENSE.txt */,
+				0ECD9902202A124C0097264B /* roses1.jpg */,
+				0ECD9903202A124C0097264B /* roses2.jpg */,
+				0ECD9904202A124C0097264B /* roses3.jpg */,
+				0ECD9905202A124C0097264B /* roses4.jpg */,
+				0ECD9906202A124C0097264B /* sunflowers1.jpg */,
+				0ECD9907202A124C0097264B /* sunflowers2.jpg */,
+				0ECD9908202A124D0097264B /* sunflowers3.jpg */,
+				0ECD9909202A124D0097264B /* sunflowers4.jpg */,
+				0ECD990A202A124D0097264B /* tulips1.jpg */,
+				0ECD990B202A124D0097264B /* tulips2.jpg */,
+				0ECD990C202A124D0097264B /* tulips3.jpg */,
+				0ECD990D202A124D0097264B /* tulips4.jpg */,
+			);
+			path = Flowers;
 			sourceTree = "<group>";
 		};
 		B0B62A6EF4178CA3FDF91474 /* Frameworks */ = {
@@ -185,12 +256,33 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ECD9918202A124D0097264B /* roses2.jpg in Resources */,
+				0ECD991E202A124D0097264B /* sunflowers4.jpg in Resources */,
 				0E81B92E2024EAB90068096A /* LaunchScreen.storyboard in Resources */,
+				0ECD9922202A124D0097264B /* tulips4.jpg in Resources */,
 				0EBDBB1D20290232001BC9C3 /* sunflower-sun-summer-yellow.jpg in Resources */,
+				0ECD9921202A124D0097264B /* tulips3.jpg in Resources */,
+				0ECD991B202A124D0097264B /* sunflowers1.jpg in Resources */,
+				0ECD9920202A124D0097264B /* tulips2.jpg in Resources */,
 				0EBDBB172028E2A2001BC9C3 /* dog.5303.jpg in Resources */,
+				0ECD9916202A124D0097264B /* LICENSE.txt in Resources */,
+				0ECD9910202A124D0097264B /* daisy3.jpg in Resources */,
+				0ECD9912202A124D0097264B /* dandelion1.jpg in Resources */,
+				0ECD9917202A124D0097264B /* roses1.jpg in Resources */,
+				0ECD9919202A124D0097264B /* roses3.jpg in Resources */,
+				0ECD9913202A124D0097264B /* dandelion2.jpg in Resources */,
+				0ECD991F202A124D0097264B /* tulips1.jpg in Resources */,
+				0ECD991A202A124D0097264B /* roses4.jpg in Resources */,
 				0E81B92B2024EAB90068096A /* Assets.xcassets in Resources */,
+				0ECD991C202A124D0097264B /* sunflowers2.jpg in Resources */,
+				0ECD9915202A124D0097264B /* dandelion4.jpg in Resources */,
+				0ECD990E202A124D0097264B /* daisy1.jpg in Resources */,
+				0ECD990F202A124D0097264B /* daisy2.jpg in Resources */,
 				0E81B9392024F0930068096A /* README.md in Resources */,
 				0E81B9292024EAB90068096A /* Main.storyboard in Resources */,
+				0ECD991D202A124D0097264B /* sunflowers3.jpg in Resources */,
+				0ECD9914202A124D0097264B /* dandelion3.jpg in Resources */,
+				0ECD9911202A124D0097264B /* daisy4.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
