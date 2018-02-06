@@ -171,7 +171,7 @@ class ViewController: UIViewController, ModelManagerDelegate {
     func updateClassifications() {
         
         
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.1, execute: {
+        
             let flower = FlowerImage.dataSet[self.currentIndex]
             
             guard let request = self.classificationRequest else {
@@ -187,8 +187,7 @@ class ViewController: UIViewController, ModelManagerDelegate {
             } catch {
                 handleError(.runningModel, "Failed to perform classification.\n\(error.localizedDescription)")
             }
-        }
-        )
+       
     }
     
     
@@ -200,7 +199,7 @@ class ViewController: UIViewController, ModelManagerDelegate {
         let totalTime = runs.reduce(0, { $0 + $1.elapseTime()})/Double(runs.count)
         
         let columnTitle = ModelExecution.columnTitle()
-        print("average \(totalTime)")
+        print("Batched average \(totalTime)")
         print(" runs\n\(columnTitle)\n\(report)")
     }
     /// Updates the UI with the results of the classification.
@@ -243,7 +242,14 @@ class ViewController: UIViewController, ModelManagerDelegate {
         runs.append(exec)
         if runs.count < FlowerImage.dataSet.count * 16 {
             currentIndex = (currentIndex + 1) % (FlowerImage.dataSet.count)
-            updateClassifications()
+            if currentIndex  == 0 {
+                DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.1, execute: {
+                    self.updateClassifications()
+                })
+            } else {
+                updateClassifications()
+            }
+            
         } else {
             postProcess()
         }
