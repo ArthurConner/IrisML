@@ -19,7 +19,7 @@ struct FlowerImage : ExpressibleByStringLiteral {
     let name:String
     let version:Int
     
-    let image:CIImage
+    let image:CVPixelBuffer
     let orientation:CGImagePropertyOrientation
     
     
@@ -27,6 +27,57 @@ struct FlowerImage : ExpressibleByStringLiteral {
                                         "sunflowers2.jpg","sunflowers4.jpg","tulips2.jpg","tulips4.jpg","daisy1.jpg","daisy3.jpg","dandelion1.jpg",
                                         "dandelion3.jpg","roses1.jpg","roses3.jpg","sunflowers1.jpg","sunflowers3.jpg","tulips1.jpg","tulips3.jpg"]
     
+    
+    static func  pixelBufferFromImage(image ciimage: CIImage) -> CVPixelBuffer {
+        
+        
+
+        //let cgimage = convertCIImageToCGImage(inputImage: ciimage!)
+        let tmpcontext = CIContext(options: nil)
+        let cgimage =  tmpcontext.createCGImage(ciimage, from: ciimage.extent)
+        
+        let cfnumPointer = UnsafeMutablePointer<UnsafeRawPointer>.allocate(capacity: 1)
+        let cfnum = CFNumberCreate(kCFAllocatorDefault, .intType, cfnumPointer)
+        let keys: [CFString] = [kCVPixelBufferCGImageCompatibilityKey, kCVPixelBufferCGBitmapContextCompatibilityKey, kCVPixelBufferBytesPerRowAlignmentKey]
+        let values: [CFTypeRef] = [kCFBooleanTrue, kCFBooleanTrue, cfnum!]
+        let keysPointer = UnsafeMutablePointer<UnsafeRawPointer?>.allocate(capacity: 1)
+        let valuesPointer =  UnsafeMutablePointer<UnsafeRawPointer?>.allocate(capacity: 1)
+        keysPointer.initialize(to: keys)
+        valuesPointer.initialize(to: values)
+        
+        let options = CFDictionaryCreate(kCFAllocatorDefault, keysPointer, valuesPointer, keys.count, nil, nil)
+        
+        let width = cgimage!.width
+        let height = cgimage!.height
+        
+        var pxbuffer: CVPixelBuffer?
+        // if pxbuffer = nil, you will get status = -6661
+        var status = CVPixelBufferCreate(kCFAllocatorDefault, width, height,
+                                         kCVPixelFormatType_32BGRA, options, &pxbuffer)
+        status = CVPixelBufferLockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0));
+        
+        let bufferAddress = CVPixelBufferGetBaseAddress(pxbuffer!);
+        
+        
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB();
+        let bytesperrow = CVPixelBufferGetBytesPerRow(pxbuffer!)
+        let context = CGContext(data: bufferAddress,
+                                width: width,
+                                height: height,
+                                bitsPerComponent: 8,
+                                bytesPerRow: bytesperrow,
+                                space: rgbColorSpace,
+                                bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue);
+        context?.concatenate(CGAffineTransform(rotationAngle: 0))
+        context?.concatenate(__CGAffineTransformMake( 1, 0, 0, -1, 0, CGFloat(height) )) //Flip Vertical
+        //        context?.concatenate(__CGAffineTransformMake( -1.0, 0.0, 0.0, 1.0, CGFloat(width), 0.0)) //Flip Horizontal
+        
+        
+        context?.draw(cgimage!, in: CGRect(x:0, y:0, width:CGFloat(width), height:CGFloat(height)));
+        status = CVPixelBufferUnlockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0));
+        return pxbuffer!;
+        
+    }
     init(_ file:String){
         
         
@@ -39,7 +90,7 @@ struct FlowerImage : ExpressibleByStringLiteral {
         
         let cropCI = ciImage.cropped(to: CGRect(x: (im.size.width - minDim)/2, y: (im.size.height - minDim)/2, width: minDim, height: minDim))
         
-        let ratio = 224.0/minDim
+        let ratio = 128.0/minDim
         
         let filter = CIFilter(name: "CILanczosScaleTransform")!
         filter.setValue(cropCI, forKey: "inputImage")
@@ -47,7 +98,8 @@ struct FlowerImage : ExpressibleByStringLiteral {
         filter.setValue(1.0, forKey: "inputAspectRatio")
         let outputImage = filter.value(forKey: "outputImage") as! CIImage
         
-        self.image = outputImage
+        self.image = FlowerImage.pixelBufferFromImage(image:outputImage)
+        
         self.orientation = CGImagePropertyOrientation(im.imageOrientation)
         self.name = (file as NSString).deletingPathExtension
         self.version = Int((file as NSString).pathExtension) ?? 0
@@ -99,7 +151,7 @@ class ViewController: UIViewController, ModelManagerDelegate {
     
     var classificationRequest: VNCoreMLRequest?
     
-    let irisModel = mobilnet100() // mobilnet025()
+    let irisModel = mobilnet025()
     let useRemote = false
     var runs:[ModelExecution] = []
     
@@ -147,7 +199,8 @@ class ViewController: UIViewController, ModelManagerDelegate {
             let request = VNCoreMLRequest(model: vis, completionHandler: { [weak self] request, error in
                 self?.processClassifications(for: request, error: error)
             })
-            request.imageCropAndScaleOption = .centerCrop
+            //request.imageCropAndScaleOption = .centerCrop
+            //request.usesCPUOnly = true
             self.classificationRequest = request
             
             
@@ -180,8 +233,10 @@ class ViewController: UIViewController, ModelManagerDelegate {
             }
             
             // DispatchQueue.global(qos: .userInitiated).async {
-            let handler = VNImageRequestHandler(ciImage: flower.image   , orientation: flower.orientation)
-            do {
+           // let handler = VNImageRequestHandler(ciImage: flower.image   , orientation: flower.orientation)
+        let handler = VNImageRequestHandler(cvPixelBuffer: flower.image, orientation: flower.orientation, options: [:])
+        
+        do {
                 self.startTime = Date.timeIntervalSinceReferenceDate
                 try handler.perform([request])
             } catch {
@@ -240,15 +295,15 @@ class ViewController: UIViewController, ModelManagerDelegate {
         let exec = ModelExecution(start: startTime, stop: stop, index: currentIndex, result: result)
         
         runs.append(exec)
-        if runs.count < FlowerImage.dataSet.count * 160 {
+        if runs.count < FlowerImage.dataSet.count * 40 {
             currentIndex = (currentIndex + 1) % (FlowerImage.dataSet.count) //GKRandomSource.sharedRandom().nextInt(upperBound: FlowerImage.dataSet.count) //
-            if currentIndex  == 0 {
+            //if currentIndex  == 0 {
                 DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.1, execute: {
                     self.updateClassifications()
                 })
-            } else {
-                updateClassifications()
-            }
+           // } else {
+          //      updateClassifications()
+          //  }
             
         } else {
             postProcess()
