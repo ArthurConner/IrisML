@@ -10,7 +10,7 @@ import UIKit
 import CoreML
 import Vision
 import ImageIO
-
+import GameKit
 
 struct FlowerImage : ExpressibleByStringLiteral {
     
@@ -39,7 +39,7 @@ struct FlowerImage : ExpressibleByStringLiteral {
         
         let cropCI = ciImage.cropped(to: CGRect(x: (im.size.width - minDim)/2, y: (im.size.height - minDim)/2, width: minDim, height: minDim))
         
-        let ratio = 128.0/minDim
+        let ratio = 224.0/minDim
         
         let filter = CIFilter(name: "CILanczosScaleTransform")!
         filter.setValue(cropCI, forKey: "inputImage")
@@ -99,7 +99,7 @@ class ViewController: UIViewController, ModelManagerDelegate {
     
     var classificationRequest: VNCoreMLRequest?
     
-    let irisModel = mobilnet025()
+    let irisModel = mobilnet100() // mobilnet025()
     let useRemote = false
     var runs:[ModelExecution] = []
     
@@ -240,8 +240,8 @@ class ViewController: UIViewController, ModelManagerDelegate {
         let exec = ModelExecution(start: startTime, stop: stop, index: currentIndex, result: result)
         
         runs.append(exec)
-        if runs.count < FlowerImage.dataSet.count * 16 {
-            currentIndex = (currentIndex + 1) % (FlowerImage.dataSet.count)
+        if runs.count < FlowerImage.dataSet.count * 160 {
+            currentIndex = (currentIndex + 1) % (FlowerImage.dataSet.count) //GKRandomSource.sharedRandom().nextInt(upperBound: FlowerImage.dataSet.count) //
             if currentIndex  == 0 {
                 DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.1, execute: {
                     self.updateClassifications()
