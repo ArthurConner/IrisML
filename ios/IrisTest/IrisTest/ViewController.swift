@@ -8,30 +8,29 @@
 
 import UIKit
 import CoreML
-import Vision
 import ImageIO
-import GameKit
+
 
 struct FlowerImage : ExpressibleByStringLiteral {
     
-    
-    
+
     let name:String
     let version:Int
     
-    let image:CVPixelBuffer
+    let image:mobilnet025Input
+    
     let orientation:CGImagePropertyOrientation
     
+    static let imageDim = 128
     
     static let dataSet:[FlowerImage] = ["daisy2.jpg","daisy4.jpg","dandelion2.jpg","dandelion4.jpg","roses2.jpg","roses4.jpg",
                                         "sunflowers2.jpg","sunflowers4.jpg","tulips2.jpg","tulips4.jpg","daisy1.jpg","daisy3.jpg","dandelion1.jpg",
                                         "dandelion3.jpg","roses1.jpg","roses3.jpg","sunflowers1.jpg","sunflowers3.jpg","tulips1.jpg","tulips3.jpg"]
     
+    // see https://gist.github.com/omarojo/b47ad0f0965ba8bf2e825ef571ef804c
     
     static func  pixelBufferFromImage(image ciimage: CIImage) -> CVPixelBuffer {
         
-        
-
         //let cgimage = convertCIImageToCGImage(inputImage: ciimage!)
         let tmpcontext = CIContext(options: nil)
         let cgimage =  tmpcontext.createCGImage(ciimage, from: ciimage.extent)
@@ -47,14 +46,14 @@ struct FlowerImage : ExpressibleByStringLiteral {
         
         let options = CFDictionaryCreate(kCFAllocatorDefault, keysPointer, valuesPointer, keys.count, nil, nil)
         
-        let width = cgimage!.width
-        let height = cgimage!.height
+        let width = imageDim
+        let height = imageDim
         
         var pxbuffer: CVPixelBuffer?
         // if pxbuffer = nil, you will get status = -6661
-        var status = CVPixelBufferCreate(kCFAllocatorDefault, width, height,
+        _ = CVPixelBufferCreate(kCFAllocatorDefault, width, height,
                                          kCVPixelFormatType_32BGRA, options, &pxbuffer)
-        status = CVPixelBufferLockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0));
+        _ = CVPixelBufferLockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0));
         
         let bufferAddress = CVPixelBufferGetBaseAddress(pxbuffer!);
         
@@ -74,10 +73,11 @@ struct FlowerImage : ExpressibleByStringLiteral {
         
         
         context?.draw(cgimage!, in: CGRect(x:0, y:0, width:CGFloat(width), height:CGFloat(height)));
-        status = CVPixelBufferUnlockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0));
+        _ = CVPixelBufferUnlockBaseAddress(pxbuffer!, CVPixelBufferLockFlags(rawValue: 0));
         return pxbuffer!;
         
     }
+    
     init(_ file:String){
         
         
@@ -90,7 +90,7 @@ struct FlowerImage : ExpressibleByStringLiteral {
         
         let cropCI = ciImage.cropped(to: CGRect(x: (im.size.width - minDim)/2, y: (im.size.height - minDim)/2, width: minDim, height: minDim))
         
-        let ratio = 128.0/minDim
+        let ratio = CGFloat(FlowerImage.imageDim)/minDim
         
         let filter = CIFilter(name: "CILanczosScaleTransform")!
         filter.setValue(cropCI, forKey: "inputImage")
@@ -98,7 +98,7 @@ struct FlowerImage : ExpressibleByStringLiteral {
         filter.setValue(1.0, forKey: "inputAspectRatio")
         let outputImage = filter.value(forKey: "outputImage") as! CIImage
         
-        self.image = FlowerImage.pixelBufferFromImage(image:outputImage)
+        self.image = mobilnet025Input( input__0: FlowerImage.pixelBufferFromImage(image:outputImage))
         
         self.orientation = CGImagePropertyOrientation(im.imageOrientation)
         self.name = (file as NSString).deletingPathExtension
@@ -145,11 +145,9 @@ struct ModelExecution{
     
 }
 
-class ViewController: UIViewController, ModelManagerDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet weak var classificationLabel: UILabel!
-    
-    var classificationRequest: VNCoreMLRequest?
     
     let irisModel = mobilnet025()
     let useRemote = false
@@ -159,24 +157,8 @@ class ViewController: UIViewController, ModelManagerDelegate {
     var startTime:TimeInterval = Date.timeIntervalSinceReferenceDate
     
     func makeModel(){
-        if useRemote {
-            let d = ModelDownloadManager.shared
-            
-            classificationLabel.text = "Downloading model"
-            d.delegate = self
-            
-            let name = "https://docs-assets.developer.apple.com/coreml/models/MobileNet.mlmodel"
-            // let name  = "https://docs-assets.developer.apple.com/coreml/models/SqueezeNet.mlmodel"
-            
-            guard let bar:URL = URL(string:  name) else {
-                handleError(.missingObject, "no valid iris url")
-                return
-            }
-            
-            d.startModelFetch(url: bar)
-        } else {
-            
-            hasNew(model: irisModel.model)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.updateClassifications()
         }
         
     }
@@ -192,125 +174,62 @@ class ViewController: UIViewController, ModelManagerDelegate {
     }
     
     
-    func hasNew(model: MLModel) {
-        startTime = Date.timeIntervalSinceReferenceDate
-        do {
-            let vis = try VNCoreMLModel(for: model)
-            let request = VNCoreMLRequest(model: vis, completionHandler: { [weak self] request, error in
-                self?.processClassifications(for: request, error: error)
-            })
-            //request.imageCropAndScaleOption = .centerCrop
-            //request.usesCPUOnly = true
-            self.classificationRequest = request
-            
-            
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.updateClassifications()
-            }
-            
-            
-        } catch {
-            handleError(.runningModel,"unable to run model \(error)")
-        }
-        
-    }
-    
     func didNotMakeModel(reason: String) {
         debugPrint("oops")
     }
     
     
-    
-    func updateClassifications() {
+    func updateClassifications(){
+        let flower = FlowerImage.dataSet[self.currentIndex]
+        self.startTime = Date.timeIntervalSinceReferenceDate
         
-        
-        
-            let flower = FlowerImage.dataSet[self.currentIndex]
-            
-            guard let request = self.classificationRequest else {
-                handleError(.missingObject, "don't have the classification request yet")
-                return
-            }
-            
-            // DispatchQueue.global(qos: .userInitiated).async {
-           // let handler = VNImageRequestHandler(ciImage: flower.image   , orientation: flower.orientation)
-        let handler = VNImageRequestHandler(cvPixelBuffer: flower.image, orientation: flower.orientation, options: [:])
-        
+        var result = "did not work"
+        var stop = self.startTime
         do {
-                self.startTime = Date.timeIntervalSinceReferenceDate
-                try handler.perform([request])
-            } catch {
-                handleError(.runningModel, "Failed to perform classification.\n\(error.localizedDescription)")
+            let p = try self.irisModel.model.prediction(from: flower.image)
+            stop = Date.timeIntervalSinceReferenceDate
+            
+            if let pred =   p.featureValue(for: "final_result__0") {
+            
+            result = "\(pred)".split(separator: "\n").joined(separator: "|")
+                
+            } else {
+                result = "\(p)"
             }
-       
+        } catch {
+            handleError(.missingObject, "\(error)")
+            result = "failed: \(error)"
+        }
+        
+        let exec = ModelExecution(start: startTime, stop: stop, index: currentIndex, result: result)
+        
+        runs.append(exec)
+        
+        if runs.count < FlowerImage.dataSet.count * 100 {
+            currentIndex = (currentIndex + 1) % (FlowerImage.dataSet.count) //GKRandomSource.sharedRandom().nextInt(upperBound:
+            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.1, execute: {
+                self.updateClassifications()
+            })
+     
+        } else {
+            postProcess()
+        }
+        
     }
+    
+
     
     
     func postProcess(){
         
         let reportLines = runs.map{$0.columnFormat()}
         let report = reportLines.joined(separator: "\n")
-        
         let totalTime = runs.reduce(0, { $0 + $1.elapseTime()})/Double(runs.count)
-        
         let columnTitle = ModelExecution.columnTitle()
         print("Batched average \(totalTime)")
         print(" runs\n\(columnTitle)\n\(report)")
     }
-    /// Updates the UI with the results of the classification.
-    /// - Tag: ProcessClassifications
-    func processClassifications(for request: VNRequest, error: Error?) {
-        
-        guard let _ = request.results else {
-            self.classificationLabel.text = "Unable to classify image.\n\(error!.localizedDescription)"
-            return
-        }
-        
-        let stop = Date.timeIntervalSinceReferenceDate
-        
-        let result:String
-        
-        if let results = request.results {
-            
-            let classifications = results as! [VNClassificationObservation]
-            
-            if classifications.isEmpty {
-                result  = "Nothing recognized."
-            } else {
-                // Display top classifications ranked by confidence in the UI.
-                let topClassifications = classifications.prefix(2)
-                let descriptions = topClassifications.map { classification in
-                    // Formats the classification for display; e.g. "(0.37) cliff, drop, drop-off".
-                    return String(format: "  (%.2f) %@", classification.confidence, classification.identifier)
-                }
-                
-                result =  descriptions.joined(separator: ";")
-                
-            }
-        } else {
-            result =  "Unable to classify image.\n\(error!.localizedDescription)"
-            
-        }
-        
-        let exec = ModelExecution(start: startTime, stop: stop, index: currentIndex, result: result)
-        
-        runs.append(exec)
-        if runs.count < FlowerImage.dataSet.count * 40 {
-            currentIndex = (currentIndex + 1) % (FlowerImage.dataSet.count) //GKRandomSource.sharedRandom().nextInt(upperBound: FlowerImage.dataSet.count) //
-            //if currentIndex  == 0 {
-                DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.1, execute: {
-                    self.updateClassifications()
-                })
-           // } else {
-          //      updateClassifications()
-          //  }
-            
-        } else {
-            postProcess()
-        }
 
-        
-    }
     
     
 }
